@@ -56,7 +56,7 @@
 
 ## 基础环境及组件 ##
 Janus graph可以在Linux系统或window系统下运行，两种方式运行.bat/.sh 两种文件即可。
-本项目基于centos7系统，Cassandra 单机，Elasticsearch 单机。我们这里为的是学习，组件越多问题越多，越不好排查，
+本项目基于centos7系统，HBase 单机，Elasticsearch 单机。我们这里为的是学习，组件越多问题越多，越不好排查，
 当使用熟练了可以进行集群，集群也很简单参考集[链接](https://github.com/bingbingll/janusgraph-dome/blob/master/集群搭建.md)。
 这里需要你看下版本[兼容](https://docs.janusgraph.org/changelog/)：
 
@@ -66,25 +66,22 @@ Janus graph可以在Linux系统或window系统下运行，两种方式运行.bat
 	3. 安装必要软件
 		1.  安装jdk: `yum install java -y`
 		2.  安装zip: `yum install -y unzip zip`
-	4. 服务器最好是2台以上；我这里是172.16.2.137、172.16.2.138。 
-3. 下载Cassandra 上传至172.16.2.138 并解压
-	1. 启动: 后台启动->`bin/cassandra -R`  前台启动-> `./cassandra`
-	2. 停止：`pgrep -f CassandraDaemon`  `kill -9 [进程号]`
-4. 下载Elasticsearch。出于安全原因，Elasticsearch必须在非root帐户下运行，所以需要手动添加用户进行启动脚本如下：
-	1. root 用户创建用户命令：`groupadd es;`、`useradd es -g es -p es;`、`chown -R es:es elasticsearch` 这一句要在janusgraph-0.4.0-hadoop2目录执行。
-	2. centos需要修改以下参数；root 用户下 修改配置文件  `vi /etc/security/limits.conf` 最后一行增加 `* soft nofile 65536 * hard nofile 131072`  ，保存退出后，在修改 `vi /etc/sysctl.conf` 最后一行追加 `vm.max_map_count=655360` 然后保存退出，执行 `sysctl -p`
-	3. 后台启动： ./elastic -d
-	4. 停止：ps -ef | grep elastic kill -9 [进程号]
+	
+3. 下载安装HBase -[HBase参考](https://www.cnblogs.com/yyxq/p/10551274.html)
+
+4. 下载安装Elasticsearch-[Elasticsearch参考](https://www.cnblogs.com/yyxq/p/10551274.html)
+
+5. 启动JanusGraph
 
 ## 服务运行 ##
 登录centos系统，进入janusgraph-0.4.0-hadoop2/conf/gremlin-server 文件夹目录修改文件如下：
 
 1. 服务式启动（Java程序调用必须启动）
 	- gremlin-server.yaml
-		- `host: 172.16.2.13` janusgraph所在的服务器IP，这样就可以在其他电脑上访问到了
+		- `host: 10.2.196.18` janusgraph所在的服务器IP，这样就可以在其他电脑上访问到了
 		- `channelizer: org.apache.tinkerpop.gremlin.server.channel.WsAndHttpChannelizer` 支持websocket和http
  	- janusgraph-cql-es-server.properties
-		- `storage.hostname=172.16.2.138` 数据库所在的服务器IP，多个IP用,号隔开
+		- `storage.hostname=10.2.196.18` 数据库所在的服务器IP，多个IP用,号隔开
 		- `storage.cql.keyspace=janusgraphtest` 自定义库名称
 		- `index.search.backend=elasticsearch` es无需改动
 		- `index.search.hostname=127.0.0.1` 使用的是自带的无需改动，若是有别的es改位其IP即可，多个IP用,号隔开  
