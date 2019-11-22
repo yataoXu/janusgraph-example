@@ -1,6 +1,6 @@
 package com.example.janusgraph.config;
 
-import lombok.extern.log4j.Log4j2;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.tinkerpop.gremlin.driver.Client;
 import org.apache.tinkerpop.gremlin.driver.Cluster;
 import org.apache.tinkerpop.gremlin.driver.remote.DriverRemoteConnection;
@@ -8,10 +8,6 @@ import org.apache.tinkerpop.gremlin.driver.ser.Serializers;
 import org.apache.tinkerpop.gremlin.process.traversal.dsl.graph.GraphTraversalSource;
 import org.apache.tinkerpop.gremlin.structure.Graph;
 import org.apache.tinkerpop.gremlin.structure.util.empty.EmptyGraph;
-import org.janusgraph.core.JanusGraph;
-import org.janusgraph.core.JanusGraphFactory;
-import org.janusgraph.core.schema.JanusGraphManagement;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 
 import java.net.URLDecoder;
@@ -25,7 +21,7 @@ import static org.apache.tinkerpop.gremlin.process.traversal.AnonymousTraversalS
  * @date 2019/9/9 20:05
  */
 @Configuration
-@Log4j2
+@Slf4j
 public class GraphSourceConfig {
 
     /**

@@ -1,13 +1,12 @@
 package com.example.janusgraph.config;
 
-import lombok.extern.log4j.Log4j2;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.tinkerpop.gremlin.structure.Transaction;
 import org.janusgraph.core.JanusGraph;
 import org.janusgraph.core.JanusGraphFactory;
 import org.janusgraph.core.schema.JanusGraphManagement;
 import org.springframework.context.annotation.Configuration;
 
-import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 
 /**
@@ -17,7 +16,7 @@ import java.net.URLDecoder;
  * @date 2019/9/9 17:09
  */
 @Configuration
-@Log4j2
+@Slf4j
 public class JanusGraphConfig {
     public final JanusGraph graph;
 
@@ -64,7 +63,7 @@ public class JanusGraphConfig {
 //        tr.open();
 //
 //        client.system_drop_keyspace(JANUSGRAPH);
-//        LOGGER.info("DROPPED keyspace janusgraph");
+//        log.info("DROPPED keyspace janusgraph");
 //        tr.close();
 //    }
 

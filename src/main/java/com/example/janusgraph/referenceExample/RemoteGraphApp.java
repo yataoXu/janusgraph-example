@@ -1,5 +1,6 @@
 package com.example.janusgraph.referenceExample;
 
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.configuration.Configuration;
 import org.apache.commons.configuration.ConfigurationException;
 import org.apache.commons.configuration.PropertiesConfiguration;
@@ -14,8 +15,6 @@ import org.apache.tinkerpop.gremlin.structure.util.empty.EmptyGraph;
 import org.janusgraph.core.JanusGraph;
 import org.janusgraph.core.attribute.Geoshape;
 import org.janusgraph.example.JanusGraphApp;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.util.stream.Stream;
 
@@ -25,8 +24,8 @@ import java.util.stream.Stream;
  * @description:
  * @date 2019/8/30 18:13
  */
+@Slf4j
 public class RemoteGraphApp extends JanusGraphApp {
-    private static final Logger LOGGER = LoggerFactory.getLogger(RemoteGraphApp.class);
 
     // used for bindings
     private static final String NAME = "name";
@@ -56,7 +55,7 @@ public class RemoteGraphApp extends JanusGraphApp {
 
     @Override
     public GraphTraversalSource openGraph() throws ConfigurationException {
-        LOGGER.info("opening graph");
+        log.info("opening graph");
         conf = new PropertiesConfiguration(propFileName);
 
         // using the remote driver for schema
@@ -76,7 +75,7 @@ public class RemoteGraphApp extends JanusGraphApp {
 
     @Override
     public void createElements() {
-        LOGGER.info("creating elements");
+        log.info("creating elements");
 
         // Use bindings to allow the Gremlin Server to cache traversals that
         // will be reused with different parameters. This minimizes the
@@ -156,7 +155,7 @@ public class RemoteGraphApp extends JanusGraphApp {
 
     @Override
     public void closeGraph() throws Exception {
-        LOGGER.info("closing graph");
+        log.info("closing graph");
         try {
             if (g != null) {
                 // this closes the remote, no need to close the empty graph
@@ -176,14 +175,14 @@ public class RemoteGraphApp extends JanusGraphApp {
 
     @Override
     public void createSchema() {
-        LOGGER.info("creating schema");
+        log.info("creating schema");
         // get the schema request as a string
         final String req = createSchemaRequest();
         // submit the request to the server
         final ResultSet resultSet = client.submit(req);
         // drain the results completely
         Stream<Result> futureList = resultSet.stream();
-        futureList.map(Result::toString).forEach(LOGGER::info);
+        futureList.map(Result::toString).forEach(log::info);
     }
 
     public static void main(String[] args) {

@@ -1,8 +1,7 @@
 package com.example.janusgraph.Example;
 
 import com.example.janusgraph.config.GraphSourceConfig;
-import lombok.extern.log4j.Log4j;
-import lombok.extern.log4j.Log4j2;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.tinkerpop.gremlin.process.traversal.Bindings;
 import org.apache.tinkerpop.gremlin.process.traversal.dsl.graph.GraphTraversalSource;
 import org.apache.tinkerpop.gremlin.structure.Vertex;
@@ -17,7 +16,7 @@ import org.springframework.stereotype.Service;
  * @date 2019/9/5 20:39
  */
 @Service
-@Log4j2
+@Slf4j
 public class GraphDataLand {
 
     @Autowired
@@ -27,15 +26,19 @@ public class GraphDataLand {
      * used for bindings
      */
     private static final String LABEL = "label";
-    /**出边*/
+    /**
+     * 出边
+     */
     private static final String OUT_V = "outV";
-    /**入边*/
+    /**
+     * 入边
+     */
     private static final String IN_V = "inV";
+
     /**
      *
      */
     public void createElements1() {
-
         log.info("creating elements方式1 使用JanusGraphTransaction对象创建");
     }
 
@@ -160,29 +163,28 @@ public class GraphDataLand {
         /** 创建点与点的关系 */
 
         g.V(b.of(OUT_V, zhangming)).as("a").V(b.of(IN_V, zhanghan)).addE(b.of(LABEL, "father")).from("a").next();
-        g.V(b.of(OUT_V,zhangming)).as("a").V(b.of(IN_V,zhangxin)).addE(b.of(LABEL, "mother")).from("a").next();
-        g.V(b.of(OUT_V,zhangming)).as("a").V(b.of(IN_V,zhaoshi)).addE(b.of(LABEL, "brother")).from("a").next();
-        g.V(b.of(OUT_V,zhangming)).as("a").V(b.of(IN_V,apple)).addE(b.of(LABEL, "belong")).from("a").next();
+        g.V(b.of(OUT_V, zhangming)).as("a").V(b.of(IN_V, zhangxin)).addE(b.of(LABEL, "mother")).from("a").next();
+        g.V(b.of(OUT_V, zhangming)).as("a").V(b.of(IN_V, zhaoshi)).addE(b.of(LABEL, "brother")).from("a").next();
+        g.V(b.of(OUT_V, zhangming)).as("a").V(b.of(IN_V, apple)).addE(b.of(LABEL, "belong")).from("a").next();
 
         g.V(b.of(OUT_V, zhaoshi)).as("a").V(b.of(IN_V, zhanghan)).addE(b.of(LABEL, "father")).from("a").next();
-        g.V(b.of(OUT_V,zhaoshi)).as("a").V(b.of(IN_V,zhangxin)).addE(b.of(LABEL, "mother")).from("a").next();
-        g.V(b.of(OUT_V,zhaoshi)).as("a").V(b.of(IN_V,zhangming)).addE(b.of(LABEL, "brother")).from("a").next();
-        g.V(b.of(OUT_V,zhaoshi)).as("a").V(b.of(IN_V,apple)).addE(b.of(LABEL, "belong")).from("a").next();
+        g.V(b.of(OUT_V, zhaoshi)).as("a").V(b.of(IN_V, zhangxin)).addE(b.of(LABEL, "mother")).from("a").next();
+        g.V(b.of(OUT_V, zhaoshi)).as("a").V(b.of(IN_V, zhangming)).addE(b.of(LABEL, "brother")).from("a").next();
+        g.V(b.of(OUT_V, zhaoshi)).as("a").V(b.of(IN_V, apple)).addE(b.of(LABEL, "belong")).from("a").next();
 
 
-        g.V(b.of(OUT_V,wanglei)).as("a").V(b.of(IN_V,zhaoshi)).addE(b.of(LABEL, "brother")).from("a").next();
-        g.V(b.of(OUT_V,wanglei)).as("a").V(b.of(IN_V,apple)).addE(b.of(LABEL, "belong")).from("a").next();
+        g.V(b.of(OUT_V, wanglei)).as("a").V(b.of(IN_V, zhaoshi)).addE(b.of(LABEL, "brother")).from("a").next();
+        g.V(b.of(OUT_V, wanglei)).as("a").V(b.of(IN_V, apple)).addE(b.of(LABEL, "belong")).from("a").next();
 
-        g.V(b.of(OUT_V,lixin)).as("a").V(b.of(IN_V,ibm)).addE(b.of(LABEL, "belong")).from("a").next();
-        g.V(b.of(OUT_V,lixin)).as("a").V(b.of(IN_V,liyan)).addE(b.of(LABEL, "brother")).from("a").next();
+        g.V(b.of(OUT_V, lixin)).as("a").V(b.of(IN_V, ibm)).addE(b.of(LABEL, "belong")).from("a").next();
+        g.V(b.of(OUT_V, lixin)).as("a").V(b.of(IN_V, liyan)).addE(b.of(LABEL, "brother")).from("a").next();
 
-        g.V(b.of(OUT_V,liyan)).as("a").V(b.of(IN_V,lixin)).addE(b.of(LABEL, "brother")).from("a").next();
-        g.V(b.of(OUT_V,liyan)).as("a").V(b.of(IN_V,apple)).addE(b.of(LABEL, "belong")).from("a").next();
+        g.V(b.of(OUT_V, liyan)).as("a").V(b.of(IN_V, lixin)).addE(b.of(LABEL, "brother")).from("a").next();
+        g.V(b.of(OUT_V, liyan)).as("a").V(b.of(IN_V, apple)).addE(b.of(LABEL, "belong")).from("a").next();
 
 
-
-        g.V(b.of(OUT_V,apple)).as("a").V(b.of(IN_V,adrs1)).addE(b.of(LABEL, "belong")).from("a").next();
-        g.V(b.of(OUT_V,ibm)).as("a").V(b.of(IN_V,adrs2)).addE(b.of(LABEL, "belong")).from("a").next();
+        g.V(b.of(OUT_V, apple)).as("a").V(b.of(IN_V, adrs1)).addE(b.of(LABEL, "belong")).from("a").next();
+        g.V(b.of(OUT_V, ibm)).as("a").V(b.of(IN_V, adrs2)).addE(b.of(LABEL, "belong")).from("a").next();
 
     }
 }

@@ -1,16 +1,11 @@
 package com.example.janusgraph.Example;
 
-import lombok.extern.log4j.Log4j;
-import lombok.extern.log4j.Log4j2;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.tinkerpop.gremlin.structure.Edge;
 import org.apache.tinkerpop.gremlin.structure.Vertex;
 import org.janusgraph.core.Cardinality;
-import org.janusgraph.core.Multiplicity;
-import org.janusgraph.core.PropertyKey;
 import org.janusgraph.core.attribute.Geoshape;
 import org.janusgraph.core.schema.JanusGraphManagement;
-import org.janusgraph.core.schema.Mapping;
-import org.janusgraph.core.schema.Parameter;
 import org.springframework.stereotype.Service;
 
 import static org.janusgraph.core.Multiplicity.MANY2ONE;
@@ -22,7 +17,7 @@ import static org.janusgraph.core.Multiplicity.MANY2ONE;
  * @date 2019/9/5 19:21
  */
 @Service
-@Log4j2
+@Slf4j
 public class CreateSchema {
 
 

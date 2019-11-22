@@ -1,7 +1,5 @@
 package com.example.janusgraph.Example;
 
-import org.janusgraph.core.attribute.Geoshape;
-
 /**
  * @author Evan
  * @version V1.0
