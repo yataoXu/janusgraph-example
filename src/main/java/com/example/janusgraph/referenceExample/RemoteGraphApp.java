@@ -1,6 +1,5 @@
 package com.example.janusgraph.referenceExample;
 
-import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.configuration.Configuration;
 import org.apache.commons.configuration.ConfigurationException;
 import org.apache.commons.configuration.PropertiesConfiguration;
@@ -15,17 +14,21 @@ import org.apache.tinkerpop.gremlin.structure.util.empty.EmptyGraph;
 import org.janusgraph.core.JanusGraph;
 import org.janusgraph.core.attribute.Geoshape;
 import org.janusgraph.example.JanusGraphApp;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.stream.Stream;
+
+;
 
 /**
  * @author Evan
  * @version V1.0
- * @description:
+ * @description TODO:
  * @date 2019/8/30 18:13
  */
-@Slf4j
 public class RemoteGraphApp extends JanusGraphApp {
+    private static final Logger LOGGER = LoggerFactory.getLogger(RemoteGraphApp.class);
 
     // used for bindings
     private static final String NAME = "name";
@@ -44,6 +47,7 @@ public class RemoteGraphApp extends JanusGraphApp {
 
     /**
      * Constructs a graph app using the given properties.
+     *
      * @param fileName location of the properties file
      */
     public RemoteGraphApp(final String fileName) {
@@ -53,9 +57,15 @@ public class RemoteGraphApp extends JanusGraphApp {
         this.supportsTransactions = false;
     }
 
+    public static void main(String[] args) {
+        final String fileName = (args != null && args.length > 0) ? args[0] : null;
+        final RemoteGraphApp app = new RemoteGraphApp(fileName);
+        app.runApp();
+    }
+
     @Override
     public GraphTraversalSource openGraph() throws ConfigurationException {
-        log.info("opening graph");
+        LOGGER.info("opening graph");
         conf = new PropertiesConfiguration(propFileName);
 
         // using the remote driver for schema
@@ -75,7 +85,7 @@ public class RemoteGraphApp extends JanusGraphApp {
 
     @Override
     public void createElements() {
-        log.info("creating elements");
+        LOGGER.info("creating elements");
 
         // Use bindings to allow the Gremlin Server to cache traversals that
         // will be reused with different parameters. This minimizes the
@@ -85,7 +95,8 @@ public class RemoteGraphApp extends JanusGraphApp {
 
         // see GraphOfTheGodsFactory.java
 
-        Vertex saturn = g.addV(b.of(LABEL, "titan")).property(NAME, b.of(NAME, "saturn"))
+        Vertex saturn = g.addV(b.of(LABEL, "titan"))
+                .property(NAME, b.of(NAME, "saturn"))
                 .property(AGE, b.of(AGE, 10000)).next();
         Vertex sky = g.addV(b.of(LABEL, "location")).property(NAME, b.of(NAME, "sky")).next();
         Vertex sea = g.addV(b.of(LABEL, "location")).property(NAME, b.of(NAME, "sea")).next();
@@ -155,7 +166,7 @@ public class RemoteGraphApp extends JanusGraphApp {
 
     @Override
     public void closeGraph() throws Exception {
-        log.info("closing graph");
+        LOGGER.info("closing graph");
         try {
             if (g != null) {
                 // this closes the remote, no need to close the empty graph
@@ -175,19 +186,13 @@ public class RemoteGraphApp extends JanusGraphApp {
 
     @Override
     public void createSchema() {
-        log.info("creating schema");
+        LOGGER.info("creating schema");
         // get the schema request as a string
         final String req = createSchemaRequest();
         // submit the request to the server
         final ResultSet resultSet = client.submit(req);
         // drain the results completely
         Stream<Result> futureList = resultSet.stream();
-        futureList.map(Result::toString).forEach(log::info);
-    }
-
-    public static void main(String[] args) {
-        final String fileName = (args != null && args.length > 0) ? args[0] : null;
-        final RemoteGraphApp app = new RemoteGraphApp(fileName);
-        app.runApp();
+        futureList.map(Result::toString).forEach(LOGGER::info);
     }
 }

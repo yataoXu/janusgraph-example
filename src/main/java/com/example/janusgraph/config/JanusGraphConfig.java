@@ -1,6 +1,6 @@
 package com.example.janusgraph.config;
 
-import lombok.extern.slf4j.Slf4j;
+import lombok.extern.log4j.Log4j2;
 import org.apache.tinkerpop.gremlin.structure.Transaction;
 import org.janusgraph.core.JanusGraph;
 import org.janusgraph.core.JanusGraphFactory;
@@ -12,17 +12,15 @@ import java.net.URLDecoder;
 /**
  * @author Evan
  * @version V1.0
- * @description:
- * @date 2019/9/9 17:09
+ * @description TODO:
+ * @date 2019/9/3 17:09
  */
 @Configuration
-@Slf4j
+@Log4j2
 public class JanusGraphConfig {
-    public final JanusGraph graph;
-
-    public final JanusGraphManagement mgt;
-
     private static final String CONFIG_FILE = "conf/janusgraph-cql-es-server.properties";
+    public final JanusGraph graph;
+    public final JanusGraphManagement mgt;
 
     /**
      * Initialize the graph and the graph management interface.
@@ -48,10 +46,7 @@ public class JanusGraphConfig {
             log.error("获取配置文件路径错误原因：" + e.getLocalizedMessage());
         }
         log.info("Connecting graph");
-//        graph = JanusGraphFactory.open(decode);
-
-        graph = getJanusGraph1();
-
+        graph = JanusGraphFactory.open(decode);
         log.info("Getting management");
         mgt = graph.openManagement();
     }
@@ -63,37 +58,39 @@ public class JanusGraphConfig {
 //        tr.open();
 //
 //        client.system_drop_keyspace(JANUSGRAPH);
-//        log.info("DROPPED keyspace janusgraph");
+//        LOGGER.info("DROPPED keyspace janusgraph");
 //        tr.close();
 //    }
 
 
     public void close() {
+        mgt.commit();
         graph.close();
     }
 
-    public void rollback(){
+    public void rollback() {
         Transaction tx = graph.tx();
         tx.rollback();
     }
 
 /**此方法也可以获取**/
-    public JanusGraph getJanusGraph1() {
-        JanusGraphFactory.Builder build = JanusGraphFactory.build()
-                .set("storage.backend", "hbase")
-                .set("storage.cql.keyspace", "janusgraph")
-                .set("storage.hostname", "10.2.196.18")
-                .set("index.search.backend", "elasticsearch")
-                .set("index.search.hostname", "10.2.196.18")
-                .set("cache.db-cache", "true")
-                .set("cache.db-cache-time", "3000000")
-                .set("cache.db-cache-size", "0.25");
-        JanusGraph janusGraph = build.open();
-        boolean open = janusGraph.isOpen();
-        if (open) {
-            System.out.println("janusgraph open");
-            return janusGraph;
-        }
-        return null;
-    }
+//    public JanusGraph getJanusGraph1() {
+//        JanusGraphFactory.Builder build = JanusGraphFactory.build()
+//                .set("storage.backend", "cql")
+//                .set("storage.cassandra.keyspace", "test")
+//                .set("storage.hostname", "172.16.2.138")
+//                .set("storage.port", "9042")
+//                .set("index.search.backend", "elasticsearch")
+//                .set("index.search.hostname", "172.16.2.137")
+//                .set("cache.db-cache", "true")
+//                .set("cache.db-cache-time", "3000000")
+//                .set("cache.db-cache-size", "0.25");
+//        JanusGraph janusGraph = build.open();
+//        boolean open = janusGraph.isOpen();
+//        if (open) {
+//            System.out.println("janusgraph open");
+//            return janusGraph;
+//        }
+//        return null;
+//    }
 }

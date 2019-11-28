@@ -1,9 +1,10 @@
 package com.example.janusgraph.Example;
 
+
 /**
  * @author Evan
  * @version V1.0
- * @description: 属性实体类
+ * @description TODO: 属性实体类
  * @date 2019/9/5 21:01
  */
 public class SchemaProperties {

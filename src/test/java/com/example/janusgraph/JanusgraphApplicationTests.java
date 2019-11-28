@@ -14,8 +14,10 @@ import java.util.Map;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
+
 public class JanusgraphApplicationTests {
-    GraphSourceConfig config=new GraphSourceConfig();
+    GraphSourceConfig config = new GraphSourceConfig();
+
     @Test
     public void testAdd() throws Exception {
         GraphTraversalSource g = config.getGts1();
@@ -55,13 +57,15 @@ public class JanusgraphApplicationTests {
 
     @Test
     public void testAdd4() throws Exception {
-        GraphTraversalSource g = config.getGts4();
+        Client client = config.getClient();
+        GraphTraversalSource g = config.getGts4(client);
         try {
-            g.addV("测试444").property("name","测试444","no","44444444");
+            g.addV("测试444").property("name", "测试444", "no", "44444444").next();
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
-            g.close();
+            config.close(g, client);
+
         }
     }
 

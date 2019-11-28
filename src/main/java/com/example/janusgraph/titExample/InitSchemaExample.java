@@ -1,8 +1,8 @@
 package com.example.janusgraph.titExample;
 
-import com.example.janusgraph.config.GraphSourceConfig;
 import com.example.janusgraph.config.JanusGraphConfig;
-import lombok.extern.slf4j.Slf4j;
+import com.example.janusgraph.config.GraphSourceConfig;
+import lombok.extern.log4j.Log4j2;
 import org.apache.tinkerpop.gremlin.structure.Edge;
 import org.apache.tinkerpop.gremlin.structure.Vertex;
 import org.janusgraph.core.EdgeLabel;
@@ -16,7 +16,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 /**
  * 初始化一个schema，并设定顶点，边，属性
  */
-@Slf4j
+@Log4j2
+@Deprecated
 public class InitSchemaExample {
     @Autowired
     GraphSourceConfig graphSource;
@@ -58,7 +59,6 @@ public class InitSchemaExample {
      * Create the statusUpdate schema - vertex label, property and full-text index.
      */
     private void createStatusUpdateSchema(JanusGraphManagement mgt) {
-
         log.info("Create {} schema", STATUS_UPDATE);
         VertexLabel statusUpdate = mgt.makeVertexLabel(STATUS_UPDATE).make();
         PropertyKey content = mgt.makePropertyKey(CONTENT).dataType(String.class).make();

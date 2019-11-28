@@ -53,7 +53,7 @@
             <artifactId>janusgraph-core</artifactId>
             <version>0.4.0</version>
         </dependency>
-<!--        用于引用app演示的依赖-->
+        <!--        用于引用app演示的依赖-->
         <dependency>
             <groupId>org.janusgraph</groupId>
             <artifactId>example-common</artifactId>
@@ -66,7 +66,7 @@
             </exclusions>
         </dependency>
 
-<!--        用于添加schema，边，属性时获得mgt对象的依赖-->
+        <!--        用于添加schema，边，属性时获得mgt对象的依赖-->
         <dependency>
             <groupId>org.janusgraph</groupId>
             <artifactId>janusgraph-cql</artifactId>
@@ -82,7 +82,6 @@
             <artifactId>janusgraph-hbase</artifactId>
             <version>0.4.0</version>
         </dependency>
-
         <dependency>
             <groupId>org.janusgraph</groupId>
             <artifactId>janusgraph-es</artifactId>
@@ -146,6 +145,14 @@
                 </exclusion>
             </exclusions>
         </dependency>
+
+        <dependency>
+            <groupId>org.elasticsearch.plugin</groupId>
+            <artifactId>jdbc</artifactId>
+            <version>5.5.0</version>
+        </dependency>
+
+
 
         <!--用于测试展示的-->
         <dependency>
