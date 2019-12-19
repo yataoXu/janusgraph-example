@@ -24,7 +24,7 @@ public class GraphOfTheGodsFactory {
 
     public static JanusGraph create(final String directory) {
         JanusGraphFactory.Builder config = JanusGraphFactory.build();
-        config.set("storage.backend", "berkeleyje");
+        config.set("storage.backend", "hbase");
         config.set("storage.directory", directory);
         config.set("index." + INDEX_NAME + ".backend", "elasticsearch");
 

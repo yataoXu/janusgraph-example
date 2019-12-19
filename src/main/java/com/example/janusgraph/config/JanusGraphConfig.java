@@ -12,7 +12,7 @@ import java.net.URLDecoder;
 /**
  * @author Evan
  * @version V1.0
- * @description TODO:
+ * @description :
  * @date 2019/9/3 17:09
  */
 @Configuration
@@ -32,8 +32,6 @@ public class JanusGraphConfig {
         } catch (Exception ex) {
             log.info("Cannot drop keyspace janusgraph");
         }
-
-
         String path = Thread.currentThread()
                 .getContextClassLoader()
                 .getResource(CONFIG_FILE).getPath().substring(1);
@@ -51,18 +49,6 @@ public class JanusGraphConfig {
         mgt = graph.openManagement();
     }
 
-    //    private void dropOldKeyspace() {
-//        TTransport tr = new TFramedTransport(new TSocket("localhost", 9160));
-//        TProtocol proto = new TBinaryProtocol(tr);
-//        Cassandra.Client client = new Cassandra.Client(proto);
-//        tr.open();
-//
-//        client.system_drop_keyspace(JANUSGRAPH);
-//        LOGGER.info("DROPPED keyspace janusgraph");
-//        tr.close();
-//    }
-
-
     public void close() {
         mgt.commit();
         graph.close();
@@ -73,15 +59,19 @@ public class JanusGraphConfig {
         tx.rollback();
     }
 
-/**此方法也可以获取**/
+
+
+    /**
+     *  此方法也可以获取
+     * @return
+     */
 //    public JanusGraph getJanusGraph1() {
 //        JanusGraphFactory.Builder build = JanusGraphFactory.build()
-//                .set("storage.backend", "cql")
-//                .set("storage.cassandra.keyspace", "test")
-//                .set("storage.hostname", "172.16.2.138")
-//                .set("storage.port", "9042")
+//                .set("storage.backend", "hbase")
+//                .set("storage.cql.keyspace", "janusgraph")
+//                .set("storage.hostname", "10.2.196.19")
 //                .set("index.search.backend", "elasticsearch")
-//                .set("index.search.hostname", "172.16.2.137")
+//                .set("index.search.hostname", "10.2.196.18")
 //                .set("cache.db-cache", "true")
 //                .set("cache.db-cache-time", "3000000")
 //                .set("cache.db-cache-size", "0.25");

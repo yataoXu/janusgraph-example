@@ -15,7 +15,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 /**
  * @author Evan
  * @version V1.0
- * @description TODO:
+ * @description
  * @date 2019/9/6 16:15
  */
 @RunWith(SpringRunner.class)
@@ -61,5 +61,7 @@ public class ExamplTest {
         land.createElements2(g);
         graphSourceConfig.close(g, client);
     }
+
+
 
 }

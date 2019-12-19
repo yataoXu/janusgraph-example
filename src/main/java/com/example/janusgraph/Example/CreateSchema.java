@@ -13,7 +13,7 @@ import static org.janusgraph.core.Multiplicity.MANY2ONE;
 /**
  * @author Evan
  * @version V1.0
- * @description TODO: 定义schema,这里的业务模型为，一个人，一个公司，
+ * @description : 定义schema,这里的业务模型为，一个人，一个公司，
  * @date 2019/9/5 19:21
  */
 @Service
@@ -51,7 +51,7 @@ public class CreateSchema {
      */
     public void createProperties(JanusGraphManagement management) {
         //名称,可以由多个名称
-        management.makePropertyKey(SchemaProperties.NAME).dataType(String.class).cardinality(Cardinality.SET).make();
+        management.makePropertyKey(SchemaProperties.NAME).dataType(String.class).make();
         //年龄,
         management.makePropertyKey(SchemaProperties.AGE).dataType(Integer.class).make();
         //身份证号
@@ -78,8 +78,8 @@ public class CreateSchema {
      * ONE2MANY:在图形中的任何顶点上最多允许此类标签的一个输入边缘，但不对输出边缘施加约束。
      * 边缘标签winnerOf是具有ONE2MANY多样性的示例，因为每个比赛最多只能赢得一个人，但是一个人可以赢得多个比赛.
      * ONE2ONE:在图中的任何顶点上最多允许此标签的一个输入边和一个输出边。边缘标签结婚是一个具有ONE2ONE多样性的例子，因为一个人与另一个人结婚。
-     * todo:默认设置为 MULTI。
-     * todo:具体参考这位同学写的链接：https://www.cnblogs.com/jiyuqi/p/7127178.html?utm_source=itdadao&utm_medium=referral
+     * :默认设置为 MULTI。
+     * :具体参考这位同学写的链接：https://www.cnblogs.com/jiyuqi/p/7127178.html?utm_source=itdadao&utm_medium=referral
      *
      * @param management
      */

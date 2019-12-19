@@ -19,7 +19,7 @@ import static org.apache.tinkerpop.gremlin.process.traversal.AnonymousTraversalS
 /**
  * @author Evan
  * @version V1.0
- * @description TODO: 获取图对象配置
+ * @description : 获取图对象配置
  * @date 2019/8/30 20:05
  */
 @Configuration
@@ -28,7 +28,7 @@ public class GraphSourceConfig {
 
     /**
      * 基于官网介绍编写1
-     * TODO:需要修改 remote-graph.properties 配置文件的gremlin.remote.driver.clusterFile=值为绝对路径
+     * :需要修改 remote-graph.properties 配置文件的gremlin.remote.driver.clusterFile=值为绝对路径
      *
      * @return
      * @throws Exception
@@ -44,7 +44,7 @@ public class GraphSourceConfig {
 
     /**
      * 基于官网介绍编写2
-     * TODO:需要修改 remote-graph.properties 配置文件的gremlin.remote.driver.clusterFile=值为绝对路径
+     * :需要修改 remote-graph.properties 配置文件的gremlin.remote.driver.clusterFile=值为绝对路径
      *
      * @return
      * @throws Exception
@@ -82,11 +82,11 @@ public class GraphSourceConfig {
         //Caused by: io.netty.handler.codec.DecoderException: org.apache.tinkerpop.gremlin.driver.ser.SerializationException: org.apache.tinkerpop.shaded.kryo.KryoException: Encountered unregistered class ID: 65536
         //https://github.com/orientechnologies/orientdb-gremlin/issues/161
 
-        //TODO:配置地址-> http://tinkerpop.apache.org/javadocs/3.4.1/core/org/apache/tinkerpop/gremlin/driver/Cluster.Builder.html
+        //:配置地址-> http://tinkerpop.apache.org/javadocs/3.4.1/core/org/apache/tinkerpop/gremlin/driver/Cluster.Builder.html
         return Cluster.build()
                 .serializer(serializer)
                 .maxConnectionPoolSize(20)
-                .maxInProcessPerConnection(15)
+                .maxInProcessPerConnection(30)
                 .maxWaitForConnection(3000)
                 .reconnectInterval(10)
                 //可配置多个,是你的janusgraph 的地址

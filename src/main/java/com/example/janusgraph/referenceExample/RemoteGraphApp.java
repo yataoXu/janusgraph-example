@@ -24,7 +24,7 @@ import java.util.stream.Stream;
 /**
  * @author Evan
  * @version V1.0
- * @description TODO:
+ * @description :
  * @date 2019/8/30 18:13
  */
 public class RemoteGraphApp extends JanusGraphApp {
